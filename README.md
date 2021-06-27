@@ -1,6 +1,12 @@
 # php-riot-games-api
 PHP Wrapper for Riot Games API
 
+## Install
+
+```shell
+$ composer require ta9to/php-riot-games-api
+```
+
 ## Usage
 
 ### GameConstant
