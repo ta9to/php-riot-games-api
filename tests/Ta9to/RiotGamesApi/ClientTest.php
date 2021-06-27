@@ -3,7 +3,10 @@
 namespace Ta9to\RiotGamesApi\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Ta9to\RiotGamesApi\Apis\Account;
+use Ta9to\RiotGamesApi\Apis\AccountApi;
+use Ta9to\RiotGamesApi\Apis\Champion\Champion;
+use Ta9to\RiotGamesApi\Apis\Champion\MasteryApi;
+use Ta9to\RiotGamesApi\Apis\SummonerApi;
 use Ta9to\RiotGamesApi\DataDragon;
 use Ta9to\RiotGamesApi\Domain\Object\ApiResponse;
 use Ta9to\RiotGamesApi\GameConstant;
@@ -73,7 +76,7 @@ class ClientTest extends TestCase
 
     public function testAccount()
     {
-        $account = new Account('asia', getenv('RIOT_API_KEY'));
+        $account = new AccountApi('asia', getenv('RIOT_API_KEY'));
         $response = $account->byRiotId('ta9to', '0901');
         $this->assertInstanceOf(ApiResponse::class, $response);
         $this->assertIsString((string)$response);
@@ -83,6 +86,52 @@ class ClientTest extends TestCase
         $this->assertIsString((string)$response);
 
         $response = $account->activeShards('val', 'QuefbaBTHQ-wmTNdvNN9Il3x1pYl6h0Q2GWFFqeTDuG8_MTUWoSZcNetUSf6WyTki0DxI7jTp7ZSUQ');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
+    }
+
+    public function testChampionMastery()
+    {
+        $this->markTestSkipped('save request freq');
+        
+        $championMastery = new MasteryApi('jp1', getenv('RIOT_API_KEY'));
+        $response = $championMastery->bySummoner('I9c7LNtijU3gyCJVJBcjbshaLtKlktGjatM3oPUw3qCtuw');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
+
+        $response = $championMastery->bySummoner('I9c7LNtijU3gyCJVJBcjbshaLtKlktGjatM3oPUw3qCtuw', 245);
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
+
+        $response = $championMastery->scoresBySummoner('I9c7LNtijU3gyCJVJBcjbshaLtKlktGjatM3oPUw3qCtuw');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testChampion()
+    {
+        $champion = new Champion('jp1', getenv('RIOT_API_KEY'));
+        $response = $champion->rotation();
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
+    }
+
+    public function testSummoner()
+    {
+        $summoner = new SummonerApi('jp1', getenv('RIOT_API_KEY'));
+
+        $response = $summoner->byEncryptedAccountId('cGasU_Xr4xsD9nhsaV8-RJwb7KPECrb89ya3JYBTdrT55GM');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
+
+        $response = $summoner->bySummonerName('ta9to');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
+
+        $response = $summoner->byEncryptedPUUID('QuefbaBTHQ-wmTNdvNN9Il3x1pYl6h0Q2GWFFqeTDuG8_MTUWoSZcNetUSf6WyTki0DxI7jTp7ZSUQ');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
+
+        $response = $summoner->byEncryptedSummonerId('I9c7LNtijU3gyCJVJBcjbshaLtKlktGjatM3oPUw3qCtuw');
         $this->assertInstanceOf(ApiResponse::class, $response);
         $this->assertIsString((string)$response);
     }
