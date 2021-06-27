@@ -3,6 +3,7 @@
 namespace Ta9to\RiotGamesApi\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Ta9to\RiotGamesApi\Apis\Account;
 use Ta9to\RiotGamesApi\DataDragon;
 use Ta9to\RiotGamesApi\Domain\Object\ApiResponse;
 use Ta9to\RiotGamesApi\GameConstant;
@@ -68,5 +69,21 @@ class ClientTest extends TestCase
         $apiResponse = DataDragon::$method($version, $language);
         $this->assertInstanceOf(ApiResponse::class, $apiResponse);
         $this->assertIsString((string)$apiResponse);
+    }
+
+    public function testAccount()
+    {
+        $account = new Account('asia', getenv('RIOT_API_KEY'));
+        $response = $account->byRiotId('ta9to', '0901');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
+
+        $response = $account->byPuuid('QuefbaBTHQ-wmTNdvNN9Il3x1pYl6h0Q2GWFFqeTDuG8_MTUWoSZcNetUSf6WyTki0DxI7jTp7ZSUQ');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
+
+        $response = $account->activeShards('val', 'QuefbaBTHQ-wmTNdvNN9Il3x1pYl6h0Q2GWFFqeTDuG8_MTUWoSZcNetUSf6WyTki0DxI7jTp7ZSUQ');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertIsString((string)$response);
     }
 }
