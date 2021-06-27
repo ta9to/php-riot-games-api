@@ -1,0 +1,26 @@
+{
+    "name": "ta9to/php-riot-games-api",
+    "description": "PHP Wrapper for Riot Games API",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ta9to",
+            "email": "ta9to.kd@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ta9to\\RiotGamesApi\\": "src/Ta9to/RiotGamesApi/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}
