@@ -36,36 +36,35 @@ class DataDragon
 
     private static function pathByMethod(string $method, array $args):string
     {
-        switch ($method) {
-            case 'versions':
-            case 'realms':
-                return 'api';
-            case 'br':
-            case 'eune':
-            case 'euw':
-            case 'garena':
-            case 'jp':
-            case 'kr':
-            case 'lan':
-            case 'las':
-            case 'na':
-            case 'oce':
-            case 'pbe':
-            case 'ru':
-            case 'tencent':
-            case 'tr':
-            case 'tw':
-                return 'realms';
-            case 'languages':
-                return 'cdn';
-            case 'champion':
-            case 'item':
-            case 'summoner':
-            case 'profileicon':
-                return "cdn/{$args[0]}/data/{$args[1]}";
-            default:
-                return '';
-        }
+        return match ($method) {
+            'languages'
+                => 'cdn',
+            'versions',
+            'realms'
+                => 'api',
+            'champion',
+            'item',
+            'summoner',
+            'profileicon'
+                => "cdn/{$args[0]}/data/{$args[1]}",
+            'jp',
+            'kr',
+            'na',
+            'ru',
+            'tr',
+            'br',
+            'tw',
+            'euw',
+            'lan',
+            'las',
+            'oce',
+            'pbe',
+            'eune',
+            'garena',
+            'tencent'
+                => 'realms',
+            default => '',
+        };
     }
 
     private static function call($url):string
