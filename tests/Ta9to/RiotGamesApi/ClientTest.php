@@ -67,7 +67,7 @@ class ClientTest extends TestCase
      * @dataProvider dataDragonMethods
      * @param $method
      */
-    public function testDataDragon($method, $version=null, $language=null)
+    public function testDataDragon($method, $version = null, $language = null)
     {
         $apiResponse = DataDragon::$method($version, $language);
         $this->assertInstanceOf(ApiResponse::class, $apiResponse);
@@ -93,7 +93,7 @@ class ClientTest extends TestCase
     public function testChampionMastery()
     {
         $this->markTestSkipped('save request freq');
-        
+
         $championMastery = new MasteryApi('jp1', getenv('RIOT_API_KEY'));
         $response = $championMastery->bySummoner('I9c7LNtijU3gyCJVJBcjbshaLtKlktGjatM3oPUw3qCtuw');
         $this->assertInstanceOf(ApiResponse::class, $response);
@@ -135,4 +135,18 @@ class ClientTest extends TestCase
         $this->assertInstanceOf(ApiResponse::class, $response);
         $this->assertIsString((string)$response);
     }
+
+    public function testMasteryApi()
+    {
+        $mastery = new MasteryApi('jp1', getenv('RIOT_API_KEY'));
+        $response = $mastery->bySummoner(
+            encryptedSummonerId: 'I9c7LNtijU3gyCJVJBcjbshaLtKlktGjatM3oPUw3qCtuw',
+            championId: '245',
+        );
+        $this->assertInstanceOf(ApiResponse::class, $response);
+
+        $response = $mastery->scoresBySummoner(encryptedSummonerId: 'I9c7LNtijU3gyCJVJBcjbshaLtKlktGjatM3oPUw3qCtuw');
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
 }
